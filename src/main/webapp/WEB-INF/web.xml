@@ -4,10 +4,19 @@
 <web-app>
   <servlet>
     <servlet-name>ShoppingListServlet</servlet-name>
-    <servlet-class>com.example.testEightList.ShoppingListServlet</servlet-class>
+    <servlet-class>com.example.testEightList.Controller.ShoppingListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ShoppingListServlet</servlet-name>
-    <url-pattern>/shoppingListServlet</url-pattern>
+    <url-pattern>/shoppingList</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ProductServlet</servlet-name>
+    <servlet-class>com.example.testEightList.Controller.ProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductServlet</servlet-name>
+    <url-pattern>/newProduct</url-pattern>
   </servlet-mapping>
 </web-app>
