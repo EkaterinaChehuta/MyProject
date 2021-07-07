@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+<div><h1>Список продуктов</h1></div>
+<div>
+    <table>
+        <tr>
+            <th>Действие</th>
+            <th>Наименование</th>
+            <th>Кол-во</th>
+            <th>Мера</th>
+        </tr>
+        <tr>
+            <td>
+                <form>
+                    <input type="checkbox">
+                </form>
+            </td>
+            <td>${name}</td>
+            <td>
+                <form>
+                    <input type="text" name="quantity" value="quantity"/>
+                </form>
+            </td>
+            <td>indicator</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <form>
+        <select>
+            <option>name</option>
+        </select>
+        <button type="submit" name="add">Добавить в список</button>
+    </form>
+    <form>
+        <button type="submit" name="addNewProduct">Добавить новый продукт</button>
+    </form>
+</div>
+</body>
+</html>
