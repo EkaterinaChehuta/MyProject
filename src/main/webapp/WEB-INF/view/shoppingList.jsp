@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-</head>
+<%@page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+
+<html>
 <body>
 <div><h1>Список продуктов</h1></div>
 <div>
@@ -14,20 +12,22 @@
             <th>Кол-во</th>
             <th>Мера</th>
         </tr>
+        <c:forEach var="product" items="${products}">
         <tr>
             <td>
                 <form>
                     <input type="checkbox">
                 </form>
             </td>
-            <td>${name}</td>
+            <td>${product.name}</td>
             <td>
                 <form>
                     <input type="text" name="quantity" />
                 </form>
             </td>
-            <td>indicator</td>
+            <td>${product.indicator}</td>
         </tr>
+        </c:forEach>
     </table>
 </div>
 <div>
