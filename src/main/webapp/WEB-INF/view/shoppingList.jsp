@@ -25,7 +25,7 @@
                     <input type="text" name="quantity" />
                 </form>
             </td>
-            <td>${product.indicator}</td>
+            <td>${product.indicator.viewName}</td>
         </tr>
         </c:forEach>
     </table>

@@ -1,6 +1,7 @@
 package com.example.testEightList.Repos;
 
 import com.example.testEightList.Config.ConnectionConfig;
+import com.example.testEightList.domain.Indicator;
 import com.example.testEightList.domain.Product;
 
 import java.sql.*;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class ProductReposImpl implements ProductRepos {
     private static final ConnectionConfig connectionConfig = new ConnectionConfig();
+    private final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
 
     @Override
     public List<Product> allProduct() throws SQLException {
@@ -19,9 +21,12 @@ public class ProductReposImpl implements ProductRepos {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM product");
 
         while (resultSet.next()) {
-            int id = resultSet.getInt(1);
-            String name = resultSet.getString(2);
-            String indicator = resultSet.getString(3);
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            int indicatorId = resultSet.getInt("indicator_id");
+
+            Indicator indicator = indicatorRepos.getIndicatorById(indicatorId);
+
             Product product = new Product(id, name, indicator);
 
             products.add(product);
@@ -31,17 +36,20 @@ public class ProductReposImpl implements ProductRepos {
     }
 
     @Override
-    public Product getProductByName(String name) throws SQLException {
+    public Product getProductByName(String searchName) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection().prepareStatement("SELECT * FROM product WHERE name=?");
-        preparedStatement.setString(1, name);
+        preparedStatement.setString(1, searchName);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if(resultSet.next()){
-            int prId = resultSet.getInt(1);
-            String prName = resultSet.getString(2);
-            String indicator = resultSet.getString(3);
-            return new Product(prId, prName, indicator);
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            int indicatorId = resultSet.getInt("indicator_id");
+
+            Indicator indicator = indicatorRepos.getIndicatorById(indicatorId);
+
+            return new Product(id, name, indicator);
         }
 
         return null;
@@ -49,9 +57,11 @@ public class ProductReposImpl implements ProductRepos {
 
     @Override
     public void addNewProduct(Product product) throws SQLException {
-        PreparedStatement preparedStatement = connectionConfig.getConnection().prepareStatement("INSERT INTO product (name, indicator) Values (?, ?)");
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement("INSERT INTO product (name, indicator_id) Values (?, ?)");
+
         preparedStatement.setString(1, product.getName());
-        preparedStatement.setString(2, product.getIndicator());
+        preparedStatement.setInt(2, product.getIndicator().getId());
 
         preparedStatement.executeUpdate();
     }

@@ -1,7 +1,10 @@
 package com.example.testEightList.Controller;
 
+import com.example.testEightList.Repos.IndicatorRepos;
+import com.example.testEightList.Repos.IndicatorReposImpl;
 import com.example.testEightList.Repos.ProductRepos;
 import com.example.testEightList.Repos.ProductReposImpl;
+import com.example.testEightList.domain.Indicator;
 import com.example.testEightList.domain.Product;
 
 import javax.servlet.ServletException;
@@ -13,11 +16,26 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class ProductServlet extends HttpServlet {
-    private ProductRepos productRepos = new ProductReposImpl();
+    private final ProductRepos productRepos = new ProductReposImpl();
+    private final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
+    boolean isCopy = false;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        try {
+            req.setAttribute("indicators", indicatorRepos.allIndicator());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        System.out.println(isCopy);
+
+        if (isCopy) { // проверяем это что то на копию
+            req.setAttribute("error", "Такой продукт есть в базе");
+        }
+
+        isCopy = false;
+
         req.getRequestDispatcher("WEB-INF/view/addNewProduct.jsp")
                 .forward(req, resp);
     }
@@ -27,7 +45,7 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
         String name = new String(req.getParameter("name")
                 .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-        String indicator = new String(req.getParameter("indicator")
+        String indicatorId = new String(req.getParameter("indicator")
                 .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
         Product product = null;
@@ -39,14 +57,18 @@ public class ProductServlet extends HttpServlet {
         }
 
         //проверить на копию (если копия, вывести сообщение и перенаправить на newProduct)
-        if(product != null){
-//            req.setAttribute("error", "Такой продукт есть в базе"); http://java-online.ru/jsp-jstl.xhtml
+        if (product != null) {
+            // что то говорящее что продукт есть в базе
+            isCopy = true;
+
             resp.sendRedirect("/newProduct");
             return;
         }
 
         //сохранить в базу
         try {
+            Indicator indicator = indicatorRepos.getIndicatorById(Integer.parseInt(indicatorId));
+
             productRepos.addNewProduct(new Product(name, indicator));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
