@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class ProductServlet extends HttpServlet {
     private final ProductRepos productRepos = new ProductReposImpl();
     private final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
-    boolean isCopy = false;
+    boolean isCopy = false; //todo так не красиво
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -28,7 +28,6 @@ public class ProductServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        System.out.println(isCopy);
 
         if (isCopy) { // проверяем это что то на копию
             req.setAttribute("error", "Такой продукт есть в базе");
@@ -42,7 +41,7 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         String name = new String(req.getParameter("name")
                 .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         String indicatorId = new String(req.getParameter("indicator")

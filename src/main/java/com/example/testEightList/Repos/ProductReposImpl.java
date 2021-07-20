@@ -32,17 +32,41 @@ public class ProductReposImpl implements ProductRepos {
             products.add(product);
 
         }
+
         return products;
     }
 
     @Override
     public Product getProductByName(String searchName) throws SQLException {
-        PreparedStatement preparedStatement = connectionConfig.getConnection().prepareStatement("SELECT * FROM product WHERE name=?");
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement("SELECT * FROM product WHERE name=?");
         preparedStatement.setString(1, searchName);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        if(resultSet.next()){
+        if (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            int indicatorId = resultSet.getInt("indicator_id");
+
+            Indicator indicator = indicatorRepos.getIndicatorById(indicatorId);
+
+            return new Product(id, name, indicator);
+        }
+
+        return null;
+    }
+
+    @Override
+    public Product getProductById(int searchId) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement("SELECT * FROM product WHERE id=?");
+
+        preparedStatement.setInt(1, searchId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             int indicatorId = resultSet.getInt("indicator_id");
@@ -58,7 +82,7 @@ public class ProductReposImpl implements ProductRepos {
     @Override
     public void addNewProduct(Product product) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement("INSERT INTO product (name, indicator_id) Values (?, ?)");
+                .prepareStatement("INSERT INTO product (name, indicator_id) VALUES (?, ?)");
 
         preparedStatement.setString(1, product.getName());
         preparedStatement.setInt(2, product.getIndicator().getId());

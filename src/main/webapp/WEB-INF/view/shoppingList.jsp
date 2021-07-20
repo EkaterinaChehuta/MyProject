@@ -12,33 +12,39 @@
             <th>Кол-во</th>
             <th>Мера</th>
         </tr>
-        <c:forEach var="product" items="${products}">
+        <c:forEach var="shop" items="${shoppingList}">
         <tr>
             <td>
                 <form>
                     <input type="checkbox">
                 </form>
             </td>
-            <td>${product.name}</td>
+            <td>${shop.product.name}</td>
             <td>
                 <form>
-                    <input type="text" name="quantity" />
+                    <input type="text" name="quantity" placeholder="${shop.quantity}" />
                 </form>
             </td>
-            <td>${product.indicator.viewName}</td>
+            <td>${shop.product.indicator.viewName}</td>
         </tr>
         </c:forEach>
     </table>
 </div>
 <div>
-    <form>
-        <select>
-            <option>name</option>
+    <form action="/shoppingList" method="post">
+        <select name="productId">
+            <option value="0" selected disabled>Выберите продукт</option>
+            <c:forEach var="product" items="${products}">
+            <option value="${product.id}">${product.name}</option>
+            </c:forEach>
         </select>
-        <button type="submit" name="add">Добавить в список</button>
+        <button type="submit" name="addProductToList">Добавить в список</button>
     </form>
     <form action="/shoppingList" method="post">
-        <button type="submit">Добавить новый продукт</button>
+            <button type="submit" name="save">Сохранить изменения в списке покупок</button>
+        </form>
+    <form action="/shoppingList" method="post">
+        <button type="submit" name="addNewProduct">Добавить новый продукт</button>
     </form>
 </div>
 </body>
