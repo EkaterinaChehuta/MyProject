@@ -1,3 +1,0 @@
-0:0:0:0:0:0:0:1 - - [20/Jul/2021:17:11:10 +0700] "GET /shoppingList HTTP/1.1" 200 2313 http-bio-8080-exec-1 1068
-0:0:0:0:0:0:0:1 - - [20/Jul/2021:17:11:13 +0700] "POST /shoppingList HTTP/1.1" 302 - http-bio-8080-exec-4 12
-0:0:0:0:0:0:0:1 - - [20/Jul/2021:17:11:13 +0700] "GET /shoppingList HTTP/1.1" 200 2704 http-bio-8080-exec-6 11

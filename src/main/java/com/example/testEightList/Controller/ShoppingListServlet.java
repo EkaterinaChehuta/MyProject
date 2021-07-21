@@ -45,7 +45,6 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //сохранить изменения если такие были
         if (req.getParameter("addNewProduct") != null) {
             resp.sendRedirect("/newProduct");
         } else if (req.getParameter("addProductToList") != null) {
@@ -62,6 +61,33 @@ public class ShoppingListServlet extends HttpServlet {
             }
 
             resp.sendRedirect("/shoppingList");
+        } else if (req.getParameter("save") != null) {
+            // обработать ложное нажатие
+            String quantity = new String(req.getParameter("quantity")
+                    .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            String id = new String(req.getParameter("id")
+                    .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+
+            try {
+                shoppingListRepos.saveChanges(Integer.parseInt(id), Integer.parseInt(quantity));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            resp.sendRedirect("/shoppingList");
+        } else if (req.getParameter("delete") != null) {
+            String id = new String(req.getParameter("id")
+                    .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+
+            try {
+                shoppingListRepos.deleteProductToList(Integer.parseInt(id));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            resp.sendRedirect("/shoppingList");
+        } else if(req.getParameter("isPurchased") != null){
+
         }
     }
 }

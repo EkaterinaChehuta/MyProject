@@ -5,27 +5,37 @@
 <body>
 <div><h1>Список продуктов</h1></div>
 <div>
-    <table>
+    <table border="1">
         <tr>
-            <th>Действие</th>
+            <th>Наличие</th>
             <th>Наименование</th>
             <th>Кол-во</th>
             <th>Мера</th>
+            <th>Действие</th>
         </tr>
         <c:forEach var="shop" items="${shoppingList}">
         <tr>
             <td>
-                <form>
-                    <input type="checkbox">
+                <form action="/shoppingList" method="post">
+                    <input type="hidden" value="${shop.id}" name="id"/>
+                    <input type="checkbox" name="isPurchased" value="${shop.id}"/>
                 </form>
             </td>
             <td>${shop.product.name}</td>
             <td>
-                <form>
-                    <input type="text" name="quantity" placeholder="${shop.quantity}" />
+                <form action="/shoppingList" method="post">
+                    <button type="submit" name="save">Сохранить</button>
+                    <input type="hidden" value="${shop.id}" name="id"/>
+                    <input type="text" name="quantity" placeholder="${shop.quantity}"/>
                 </form>
             </td>
             <td>${shop.product.indicator.viewName}</td>
+            <td>
+                <form action="/shoppingList" method="post">
+                    <button type="submit" name="delete">Удалить</button>
+                    <input type="hidden" value="${shop.id}" name="id"/>
+                </form>
+            </td>
         </tr>
         </c:forEach>
     </table>
@@ -40,9 +50,6 @@
         </select>
         <button type="submit" name="addProductToList">Добавить в список</button>
     </form>
-    <form action="/shoppingList" method="post">
-            <button type="submit" name="save">Сохранить изменения в списке покупок</button>
-        </form>
     <form action="/shoppingList" method="post">
         <button type="submit" name="addNewProduct">Добавить новый продукт</button>
     </form>

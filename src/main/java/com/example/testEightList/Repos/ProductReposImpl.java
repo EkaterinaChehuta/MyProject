@@ -89,22 +89,4 @@ public class ProductReposImpl implements ProductRepos {
 
         preparedStatement.executeUpdate();
     }
-
-    /*@Override
-    public Product getProductById(int id) throws SQLException {
-        Product product = null;
-
-        PreparedStatement preparedStatement = connectionConfig.getConnection().prepareStatement("SELECT * FROM product WHERE id=?");
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        if (resultSet.next()) {
-            int prId = resultSet.getInt(1);
-            String name = resultSet.getString(2);
-            String indicator = resultSet.getString(3);
-            product = new Product(prId, name, indicator);
-        }
-
-        return product;
-    }*/
 }

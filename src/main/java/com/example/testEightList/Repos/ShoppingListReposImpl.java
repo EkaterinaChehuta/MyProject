@@ -46,4 +46,25 @@ public class ShoppingListReposImpl implements ShoppingListRepos {
 
         preparedStatement.executeUpdate();
     }
+
+    @Override
+    public void deleteProductToList(int id) throws SQLException {
+        PreparedStatement preparedStatement =connectionConfig.getConnection()
+                .prepareStatement("DELETE FROM shoppingList WHERE id=?");
+
+        preparedStatement.setInt(1,id);
+
+        preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public void saveChanges(int id, int quantity) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement("UPDATE shoppingList SET quantity=? WHERE id=?");
+
+        preparedStatement.setInt(1, quantity);
+        preparedStatement.setInt(2, id);
+
+        preparedStatement.executeUpdate();
+    }
 }
