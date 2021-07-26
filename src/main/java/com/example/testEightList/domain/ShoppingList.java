@@ -1,9 +1,14 @@
 package com.example.testEightList.domain;
 
-public class ShoppingList {
+import java.io.Serializable;
+import java.util.Comparator;
+
+public class ShoppingList implements Serializable {
     private int id;
     private Product product;
     private int quantity;
+    private boolean isPurchased;
+
 
     public ShoppingList() {
     }
@@ -12,10 +17,11 @@ public class ShoppingList {
         this.product = product;
     }
 
-    public ShoppingList(int id, Product product, int quantity) {
+    public ShoppingList(int id, Product product, int quantity, boolean isPurchased) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
+        this.isPurchased = isPurchased;
     }
 
     public int getId() {
@@ -40,5 +46,13 @@ public class ShoppingList {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isPurchased() {
+        return isPurchased;
+    }
+
+    public void setPurchased(boolean purchased) {
+        isPurchased = purchased;
     }
 }

@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ShoppingListReposImpl implements ShoppingListRepos {
@@ -26,13 +28,23 @@ public class ShoppingListReposImpl implements ShoppingListRepos {
             int id = resultSet.getInt("id");
             int productId = resultSet.getInt("product_id");
             int quantity = resultSet.getInt("quantity");
+            boolean isPurchased = resultSet.getBoolean("is_purchased");
 
             Product product = productRepos.getProductById(productId);
 
-            ShoppingList shoppingList = new ShoppingList(id, product, quantity);
+            ShoppingList shoppingList = new ShoppingList(id, product, quantity, isPurchased);
 
             productList.add(shoppingList);
         }
+
+        Collections.sort(productList, new Comparator<ShoppingList>() {
+            @Override
+            public int compare(ShoppingList o1, ShoppingList o2) {
+                String s1 = Boolean.toString(o1.isPurchased());
+                String s2 = Boolean.toString(o2.isPurchased());
+                return s1.compareTo(s2);
+            }
+        });
 
         return productList;
     }
@@ -48,7 +60,7 @@ public class ShoppingListReposImpl implements ShoppingListRepos {
     }
 
     @Override
-    public void deleteProductToList(int id) throws SQLException {
+    public void removeProductToList(int id) throws SQLException {
         PreparedStatement preparedStatement =connectionConfig.getConnection()
                 .prepareStatement("DELETE FROM shoppingList WHERE id=?");
 
@@ -66,5 +78,23 @@ public class ShoppingListReposImpl implements ShoppingListRepos {
         preparedStatement.setInt(2, id);
 
         preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public Product getProductById(int productId) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement("SELECT * FROM shoppingList WHERE product_id=?");
+
+        preparedStatement.setInt(1, productId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Product product = null;
+
+        while (resultSet.next()){
+            product = productRepos.getProductById(productId);
+        }
+
+        return product;
     }
 }

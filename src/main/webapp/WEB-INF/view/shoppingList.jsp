@@ -19,6 +19,7 @@
                 <form action="/shoppingList" method="post">
                     <input type="hidden" value="${shop.id}" name="id"/>
                     <input type="checkbox" name="isPurchased" value="${shop.id}"/>
+                    <%-- как установить галочку если поле isPurchased == true? --%>
                 </form>
             </td>
             <td>${shop.product.name}</td>
@@ -32,7 +33,7 @@
             <td>${shop.product.indicator.viewName}</td>
             <td>
                 <form action="/shoppingList" method="post">
-                    <button type="submit" name="delete">Удалить</button>
+                    <button type="submit" name="remove">Удалить</button>
                     <input type="hidden" value="${shop.id}" name="id"/>
                 </form>
             </td>

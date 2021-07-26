@@ -8,7 +8,6 @@ import com.example.testEightList.domain.Product;
 import com.example.testEightList.domain.ShoppingList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,21 +47,47 @@ public class ShoppingListServlet extends HttpServlet {
         if (req.getParameter("addNewProduct") != null) {
             resp.sendRedirect("/newProduct");
         } else if (req.getParameter("addProductToList") != null) {
+            addProductToList(req);
+            resp.sendRedirect("/shoppingList");
+        } else if (req.getParameter("save") != null) {
+            saveQuantity(req);
+            resp.sendRedirect("/shoppingList");
+        } else if (req.getParameter("remove") != null) {
+            removeProductFromList(req);
+            resp.sendRedirect("/shoppingList");
+        } else if (req.getParameter("isPurchased") != null) {
+
+        }
+    }
+
+    private void addProductToList (HttpServletRequest req){
+        if (req.getParameter("productId") != null) {
             String productId = new String(req.getParameter("productId")
                     .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
             Product product = null;
 
             try {
-                product = productRepos.getProductById(Integer.parseInt(productId));
-                shoppingListRepos.addProductToList(new ShoppingList(product));
+                product = shoppingListRepos.getProductById(Integer.parseInt(productId));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
-            resp.sendRedirect("/shoppingList");
-        } else if (req.getParameter("save") != null) {
-            // обработать ложное нажатие
+            if (product == null) {
+                try {
+                    product = productRepos.getProductById(Integer.parseInt(productId));
+                    shoppingListRepos.addProductToList(new ShoppingList(product));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            } else {
+                // вывести сообщение что продукт есть в списке
+            }
+        }
+    }
+
+    private void saveQuantity(HttpServletRequest req){
+        if (!req.getParameter("quantity").isEmpty()) {
             String quantity = new String(req.getParameter("quantity")
                     .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             String id = new String(req.getParameter("id")
@@ -73,21 +98,17 @@ public class ShoppingListServlet extends HttpServlet {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+        }
+    }
 
-            resp.sendRedirect("/shoppingList");
-        } else if (req.getParameter("delete") != null) {
-            String id = new String(req.getParameter("id")
-                    .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+    private void removeProductFromList(HttpServletRequest req){
+        String id = new String(req.getParameter("id")
+                .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-            try {
-                shoppingListRepos.deleteProductToList(Integer.parseInt(id));
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
-            resp.sendRedirect("/shoppingList");
-        } else if(req.getParameter("isPurchased") != null){
-
+        try {
+            shoppingListRepos.removeProductToList(Integer.parseInt(id));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }
