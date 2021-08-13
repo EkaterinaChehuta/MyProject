@@ -6,11 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="TestEightList" />
+        <module name="Connection" />
+        <module name="Product" />
+        <module name="Web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Comfig" target="1.7" />
+      <module name="Connection" target="1.7" />
+      <module name="ConnectionDB" target="1.7" />
+      <module name="Product" target="1.7" />
+      <module name="recipe" target="1.7" />
       <module name="TestEightList" target="1.7" />
+      <module name="Web" target="1.7" />
+      <module name="WebModule" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

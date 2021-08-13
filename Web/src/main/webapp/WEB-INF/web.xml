@@ -1,0 +1,22 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<web-app version="2.5">
+<!--  <servlet>-->
+<!--    <servlet-name>ShoppingListServlet</servlet-name>-->
+<!--    <servlet-class>com.example.testEightList.Product.src.main.java.Controller.ShoppingListServlet</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>ShoppingListServlet</servlet-name>-->
+<!--    <url-pattern>/shoppingList</url-pattern>-->
+<!--  </servlet-mapping>-->
+
+<!--  <servlet>-->
+<!--    <servlet-name>ProductServlet</servlet-name>-->
+<!--    <servlet-class>com.example.testEightList.Product.src.main.java.Controller.ProductServlet</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>ProductServlet</servlet-name>-->
+<!--    <url-pattern>/newProduct</url-pattern>-->
+<!--  </servlet-mapping>-->
+</web-app>
