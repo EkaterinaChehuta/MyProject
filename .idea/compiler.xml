@@ -9,6 +9,7 @@
         <module name="Connection" />
         <module name="Product" />
         <module name="Web" />
+        <module name="Recipe" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -16,6 +17,7 @@
       <module name="Connection" target="1.7" />
       <module name="ConnectionDB" target="1.7" />
       <module name="Product" target="1.7" />
+      <module name="Recipe" target="1.7" />
       <module name="recipe" target="1.7" />
       <module name="TestEightList" target="1.7" />
       <module name="Web" target="1.7" />

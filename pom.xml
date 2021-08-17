@@ -13,6 +13,7 @@
         <module>Product</module>
         <module>Connection</module>
         <module>Web</module>
+        <module>Recipe</module>
     </modules>
 
     <packaging>pom</packaging>

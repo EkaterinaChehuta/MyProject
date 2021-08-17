@@ -39,7 +39,8 @@ public class ShoppingListServlet extends HttpServlet {
         req.setAttribute("products", products);
         req.setAttribute("shoppingList", shoppingList);
 
-        req.getRequestDispatcher("WEB-INF/view/shoppingList.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/view/shoppingList.jsp")
+                .forward(req, resp);
     }
 
     @Override
