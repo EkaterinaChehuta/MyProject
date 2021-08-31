@@ -70,7 +70,7 @@ public class ShoppingListServlet extends HttpServlet {
             Product product = null;
 
             try {
-                product = shoppingListRepos.getProductById(Integer.parseInt(productId));
+                product = shoppingListRepos.getProductByProductId(Integer.parseInt(productId));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

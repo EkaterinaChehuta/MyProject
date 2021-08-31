@@ -1,12 +1,11 @@
 Domain\Product.class
 Repos\ShoppingListRepos.class
-Repos\IndicatorReposImpl.class
-Controller\ProductServlet.class
-Domain\Indicator.class
-Repos\ShoppingListReposImpl$1.class
 Repos\ShoppingListReposImpl.class
 Repos\IndicatorRepos.class
 Repos\ProductReposImpl.class
+Repos\IndicatorReposImpl.class
+Controller\ProductServlet.class
+Domain\Indicator.class
 Repos\ProductRepos.class
 Domain\ShoppingList.class
 Controller\ShoppingListServlet.class

@@ -11,5 +11,5 @@ public interface ShoppingListRepos{
     void addProductToList(ShoppingList shoppingList) throws SQLException;
     void removeProductToList(int id) throws SQLException;
     void saveChanges(int id, int quantity) throws SQLException;
-    Product getProductById(int id) throws SQLException;
+    Product getProductByProductId(int id) throws SQLException;
 }

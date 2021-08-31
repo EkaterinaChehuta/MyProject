@@ -13,18 +13,21 @@ import java.util.List;
 public class IndicatorReposImpl implements IndicatorRepos {
     private final ConnectionConfig connectionConfig = new ConnectionConfig();
 
+    private static final String GET_INDICATOR = "SELECT * FROM indicator";
+    private static final String GET_INDICATOR_BY_ID = "SELECT * FROM indicator WHERE id=?";
+
     @Override
     public List<Indicator> allIndicator() throws SQLException {
         ArrayList<Indicator> indicators = new ArrayList<>();
 
         Statement statement = connectionConfig.getConnection().createStatement();
 
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM indicator");
+        ResultSet resultSet = statement.executeQuery(GET_INDICATOR);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
-            String viewName = resultSet.getString("viewName");
+            String viewName = resultSet.getString("view_name");
 
             Indicator indicator = new Indicator(id, name, viewName);
 
@@ -37,7 +40,7 @@ public class IndicatorReposImpl implements IndicatorRepos {
     @Override
     public Indicator getIndicatorById(int indicatorId) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement("SELECT * FROM indicator WHERE id=?");
+                .prepareStatement(GET_INDICATOR_BY_ID);
 
         preparedStatement.setInt(1, indicatorId);
 
@@ -46,7 +49,7 @@ public class IndicatorReposImpl implements IndicatorRepos {
         if (resultSet.next()) {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
-            String viewName = resultSet.getString("viewName");
+            String viewName = resultSet.getString("view_name");
 
             return new Indicator(id, name, viewName);
         }

@@ -4,12 +4,10 @@ import Database.ConnectionConfig;
 import Domain.IngredientsName;
 import Domain.Ingredients;
 import Domain.Product;
-import Domain.Recipe;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +16,14 @@ public class IngredientsReposImpl implements IngredientsRepos {
     private static final IngredientsNameRepos ingredientsNameRepos = new IngredientsNameReposImpl();
     private static final ProductRepos productRepos = new ProductReposImpl();
 
-    @Override
-    public List<Ingredients> getIngredientsListByIngredientsNameId(int searchId) throws SQLException {
+    private static final String GET_INGREDIENTS_BY_INGREDIENTS_NAME_ID =
+            "SELECT * FROM ingredients WHERE ingredients_name_id = ?";
+    private static final String INSERT_INGREDIENT =
+            "INSERT INTO ingredients (product_id, quantity, ingredients_name_id) VALUES (?,?,?)";
+
+    public List<Ingredients> getIngredientsByIngredientsNameId(int searchId) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement("SELECT * FROM ingredients WHERE ingredients_name_id = ?");
+                .prepareStatement(GET_INGREDIENTS_BY_INGREDIENTS_NAME_ID);
 
         preparedStatement.setInt(1, searchId);
 
@@ -41,7 +43,19 @@ public class IngredientsReposImpl implements IngredientsRepos {
         return ingredientsList;
     }
 
-//    @Override
+    @Override
+    public void addIngredient(Product product, int quantity, IngredientsName ingredientsName) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement(INSERT_INGREDIENT);
+
+        preparedStatement.setInt(1, product.getId());
+        preparedStatement.setInt(2, quantity);
+        preparedStatement.setInt(3, ingredientsName.getId());
+
+        preparedStatement.executeUpdate();
+    }
+
+    //    @Override
 //    public List<Ingredients> allIngredientsList() throws SQLException {
 //        ArrayList<Ingredients> ingredientsList = new ArrayList<>();
 //

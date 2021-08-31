@@ -1,11 +1,8 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 
-<% Product[] ingredients = new Product[]{} %>
-
 <html>
 <body>
-
 <table border="1">
     <tr>
         <th>
@@ -26,13 +23,14 @@
         <td>
         <h3>Ингредиенты</h3>
         <ul>
-            <%
-                for(Product product: ingredients){
-                    out.println("<li>" + product.name + "</li>");
-                }
-             %>
+            <c:forEach var="ingredient" items="${ingredients}">
+                <li>${ingredient.name}</li>
+                <input type="text" name="quantity" />
+                <li>${ingredient.indicator.viewName}</li>
+            </c:forEach>
         </ul>
         <p>
+        <form>
             <select name="productId">
                 <option value="0" selected disabled>Выберите продукт</option>
                 <c:forEach var="product" items="${products}">
@@ -40,16 +38,16 @@
                 </c:forEach>
             </select>
             <button type="submit" name="add">Добавить</button>
+        </form>
         </p>
         </td>
     </tr>
     <tr>
         <td></td>
         <td>
-            <button type="submit">Сохранить</button>
+            <button type="submit" name="save">Сохранить</button>
         </td>
     </tr>
-
 </table>
 </body>
 </html>

@@ -1,4 +1,0 @@
-0:0:0:0:0:0:0:1 - - [16/Aug/2021:19:02:00 +0700] "GET /recipesList HTTP/1.1" 200 777 http-bio-8080-exec-1 1159
-0:0:0:0:0:0:0:1 - - [16/Aug/2021:19:02:01 +0700] "GET /newRecipe?new= HTTP/1.1" 200 679 http-bio-8080-exec-3 123
-0:0:0:0:0:0:0:1 - - [16/Aug/2021:19:02:54 +0700] "GET /newRecipe?new= HTTP/1.1" 200 718 http-bio-8080-exec-4 69
-0:0:0:0:0:0:0:1 - - [16/Aug/2021:19:04:58 +0700] "GET /newRecipe?new= HTTP/1.1" 200 1476 http-bio-8080-exec-6 113

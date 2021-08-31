@@ -29,7 +29,7 @@
     <tr>
         <td></td>
         <td>
-            <form action="/recipe" method="get">
+            <form action="/recipesList" method="get">
                 <button type="submit">Вернуться к списку</button>
             </form>
         </td>

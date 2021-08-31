@@ -14,13 +14,13 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Comfig" target="1.7" />
-      <module name="Connection" target="1.7" />
+      <module name="Connection" target="1.8" />
       <module name="ConnectionDB" target="1.7" />
-      <module name="Product" target="1.7" />
-      <module name="Recipe" target="1.7" />
+      <module name="Product" target="1.8" />
+      <module name="Recipe" target="1.8" />
       <module name="recipe" target="1.7" />
-      <module name="TestEightList" target="1.7" />
-      <module name="Web" target="1.7" />
+      <module name="TestEightList" target="1.8" />
+      <module name="Web" target="1.8" />
       <module name="WebModule" target="1.7" />
     </bytecodeTargetLevel>
   </component>

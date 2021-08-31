@@ -2,7 +2,7 @@ package Domain;
 
 import java.io.Serializable;
 
-public class ShoppingList implements Serializable {
+public class ShoppingList{
     private int id;
     private Product product;
     private int quantity;

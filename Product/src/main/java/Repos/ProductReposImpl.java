@@ -13,13 +13,18 @@ public class ProductReposImpl implements ProductRepos {
     private static final ConnectionConfig connectionConfig = new ConnectionConfig();
     private final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
 
+    private static final String GET_PRODUCT = "SELECT * FROM product";
+    private static final String GET_PRODUCT_BY_NAME = "SELECT * FROM product WHERE name=?";
+    private static final String GET_PRODUCT_BY_ID = "SELECT * FROM product WHERE id=?";
+    private static final String INSERT_PRODUCT = "INSERT INTO product (name, indicator_id) VALUES (?, ?)";
+
     @Override
     public List<Product> allProduct() throws SQLException {
         ArrayList<Product> products = new ArrayList<>();
 
         Statement statement = connectionConfig.getConnection().createStatement();
 
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM product");
+        ResultSet resultSet = statement.executeQuery(GET_PRODUCT);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
@@ -40,7 +45,7 @@ public class ProductReposImpl implements ProductRepos {
     @Override
     public Product getProductByName(String searchName) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement("SELECT * FROM product WHERE name=?");
+                .prepareStatement(GET_PRODUCT_BY_NAME);
         preparedStatement.setString(1, searchName);
 
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -61,7 +66,7 @@ public class ProductReposImpl implements ProductRepos {
     @Override
     public Product getProductById(int searchId) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement("SELECT * FROM product WHERE id=?");
+                .prepareStatement(GET_PRODUCT_BY_ID);
 
         preparedStatement.setInt(1, searchId);
 
@@ -83,7 +88,7 @@ public class ProductReposImpl implements ProductRepos {
     @Override
     public void addNewProduct(Product product) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement("INSERT INTO product (name, indicator_id) VALUES (?, ?)");
+                .prepareStatement(INSERT_PRODUCT);
 
         preparedStatement.setString(1, product.getName());
         preparedStatement.setInt(2, product.getIndicator().getId());
