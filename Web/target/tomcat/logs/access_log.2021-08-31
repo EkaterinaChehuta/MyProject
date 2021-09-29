@@ -1,9 +1,0 @@
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:57:40 +0700] "GET /recipesList? HTTP/1.1" 200 1148 http-bio-8080-exec-1 996
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:57:42 +0700] "GET /viewRecipe?open=&id=1 HTTP/1.1" 200 2324 http-bio-8080-exec-3 148
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:57:43 +0700] "GET /viewRecipe?open=&id=2 HTTP/1.1" 200 3079 http-bio-8080-exec-5 22
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:57:45 +0700] "GET /newRecipe?new= HTTP/1.1" 200 1719 http-bio-8080-exec-7 85
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:57:48 +0700] "POST /newIngredient HTTP/1.1" 405 1067 http-bio-8080-exec-8 13
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:58:05 +0700] "GET /shoppingList HTTP/1.1" 200 4459 http-bio-8080-exec-9 117
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:58:08 +0700] "POST /shoppingList HTTP/1.1" 302 - http-bio-8080-exec-10 1
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:58:08 +0700] "GET /newProduct HTTP/1.1" 200 836 http-bio-8080-exec-10 60
-0:0:0:0:0:0:0:1 - - [31/Aug/2021:11:58:09 +0700] "GET /shoppingList HTTP/1.1" 200 4459 http-bio-8080-exec-10 15

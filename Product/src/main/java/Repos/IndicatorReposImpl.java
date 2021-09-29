@@ -14,7 +14,7 @@ public class IndicatorReposImpl implements IndicatorRepos {
     private final ConnectionConfig connectionConfig = new ConnectionConfig();
 
     private static final String GET_INDICATOR = "SELECT * FROM indicator";
-    private static final String GET_INDICATOR_BY_ID = "SELECT * FROM indicator WHERE id=?";
+    public static final String GET_INDICATOR_BY_ID = "SELECT * FROM indicator WHERE id=?";
 
     @Override
     public List<Indicator> allIndicator() throws SQLException {

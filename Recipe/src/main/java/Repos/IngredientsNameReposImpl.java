@@ -10,8 +10,7 @@ import java.sql.SQLException;
 public class IngredientsNameReposImpl implements IngredientsNameRepos {
     private static final ConnectionConfig connectionConfig = new ConnectionConfig();
 
-    private static final String GET_INGREDIENTS_NAME_BY_ID = "SELECT * FROM ingredients_name WHERE id=?";
-    private static final String INSERT_INGREDIENTS_NAME = "INSERT INTO ingredients_name (name) VALUES (?)";
+    public static final String GET_INGREDIENTS_NAME_BY_ID = "SELECT * FROM ingredients_name WHERE id=?";
 
     @Override
     public IngredientsName getIngredientsNameById(int id) throws SQLException {
@@ -29,17 +28,5 @@ public class IngredientsNameReposImpl implements IngredientsNameRepos {
         }
 
         return null;
-    }
-
-    @Override
-    public int addNewIngredientsName(String name) throws SQLException {
-        PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement(INSERT_INGREDIENTS_NAME);
-
-        preparedStatement.setString(1, name);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        return resultSet.getInt("id");
     }
 }

@@ -1,6 +1,8 @@
 package Controller;
 
+import Database.ConnectionConfig;
 import Domain.Ingredients;
+import Domain.Product;
 import Domain.Recipe;
 import Repos.*;
 
@@ -27,7 +29,7 @@ public class ViewRecipeServlet extends HttpServlet {
 
         try {
             recipe = recipeRepos.getRecipeById(Integer.parseInt(recipeId));
-            ingredients = ingredientsRepos.getIngredientsByIngredientsNameId(recipe.getIngredientsName().getId());
+            ingredients = ingredientsRepos.getIngredientsListByIngredientsNameId(recipe.getIngredientsName().getId());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

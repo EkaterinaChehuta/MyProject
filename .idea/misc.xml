@@ -9,9 +9,10 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/Comfig/pom.xml" />
+        <option value="$PROJECT_DIR$/ShoppingLists/pom.xml" />
         <option value="$PROJECT_DIR$/recipe/pom.xml" />
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" default="false" project-jdk-name="15" project-jdk-type="JavaSDK" />
 </project>

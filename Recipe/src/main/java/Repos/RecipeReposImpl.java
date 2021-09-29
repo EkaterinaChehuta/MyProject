@@ -15,10 +15,9 @@ public class RecipeReposImpl implements RecipeRepos {
     private static final ConnectionConfig connectionConfig = new ConnectionConfig();
     private static final IngredientsNameRepos ingredientsNameRepos = new IngredientsNameReposImpl();
 
-    private static final String GET_RECIPE = "SELECT * FROM recipe";
-    private static final String GET_RECIPE_BY_ID = "SELECT * FROM recipe WHERE id=?";
-    private static final String GET_RECIPE_BY_NAME = "SELECT * FROM recipe WHERE name=?";
-    private static final String INSERT_RECIPE = "INSERT INTO recipe (name, ingredients_name_id, preparation) VALUES (?,?,?)";
+    public static final String GET_RECIPE = "SELECT * FROM recipe";
+    public static final String GET_RECIPE_BY_ID = "SELECT * FROM recipe WHERE id=?";
+    public static final String GET_RECIPE_BY_NAME = "SELECT * FROM recipe WHERE name=?";
 
 
     @Override
@@ -29,7 +28,7 @@ public class RecipeReposImpl implements RecipeRepos {
 
         ResultSet resultSet = statement.executeQuery(GET_RECIPE);
 
-        while (resultSet.next()) {
+        while (resultSet.next()){
             int id = resultSet.getInt("id");
             String recipeName = resultSet.getString("name");
             int ingredientsNameId = resultSet.getInt("ingredients_name_id");
@@ -54,10 +53,10 @@ public class RecipeReposImpl implements RecipeRepos {
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        if (resultSet.next()) {
+        if(resultSet.next()){
             int id = resultSet.getInt("id");
-            IngredientsName ingredientsName = ingredientsNameRepos
-                    .getIngredientsNameById(Integer.parseInt(resultSet.getString("ingredients_name_id")));
+            IngredientsName ingredientsName = ingredientsNameRepos.getIngredientsNameById(
+                    Integer.parseInt(resultSet.getString("ingredients_name_id")));
             String preparation = resultSet.getString("preparation");
 
             return new Recipe(id, name, ingredientsName, preparation);
@@ -75,7 +74,7 @@ public class RecipeReposImpl implements RecipeRepos {
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        if (resultSet.next()) {
+        if(resultSet.next()){
             String name = resultSet.getString("name");
             IngredientsName ingredientsName = ingredientsNameRepos
                     .getIngredientsNameById(Integer.parseInt(resultSet.getString("ingredients_name_id")));
@@ -85,17 +84,5 @@ public class RecipeReposImpl implements RecipeRepos {
         }
 
         return null;
-    }
-
-    @Override
-    public void addRecipe(String name, IngredientsName ingredientsName, String preparation) throws SQLException {
-        PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement(INSERT_RECIPE);
-
-        preparedStatement.setString(1, name);
-        preparedStatement.setInt(2, ingredientsName.getId());
-        preparedStatement.setString(3, preparation);
-
-        preparedStatement.executeUpdate();
     }
 }

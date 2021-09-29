@@ -7,6 +7,7 @@ import Repos.ShoppingListReposImpl;
 import Domain.Product;
 import Domain.ShoppingList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,16 +49,24 @@ public class ShoppingListServlet extends HttpServlet {
             throws ServletException, IOException {
         if (req.getParameter("addNewProduct") != null) {
             resp.sendRedirect("/newProduct");
-        } else if (req.getParameter("addProductToList") != null) {
+        }
+
+        if (req.getParameter("addProductToList") != null) {
             addProductToList(req);
             resp.sendRedirect("/shoppingList");
-        } else if (req.getParameter("save") != null) {
+        }
+
+        if (req.getParameter("save") != null) {
             saveQuantity(req);
             resp.sendRedirect("/shoppingList");
-        } else if (req.getParameter("remove") != null) {
+        }
+
+        if (req.getParameter("remove") != null) {
             removeProductFromList(req);
             resp.sendRedirect("/shoppingList");
-        } else if (req.getParameter("isPurchased") != null) {
+        }
+
+        if (req.getParameter("isPurchased") != null) {
 
         }
     }
@@ -70,7 +79,7 @@ public class ShoppingListServlet extends HttpServlet {
             Product product = null;
 
             try {
-                product = shoppingListRepos.getProductByProductId(Integer.parseInt(productId));
+                product = shoppingListRepos.getProductById(Integer.parseInt(productId));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

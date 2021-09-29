@@ -51,9 +51,10 @@
         </select>
         <button type="submit" name="addProductToList">Добавить в список</button>
     </form>
-    <form action="/shoppingList" method="post">
-        <button type="submit" name="addNewProduct">Добавить новый продукт</button>
-    </form>
+    <div>
+        <a href="products?action=addNewProduct">Добавить новый продукт</a>
+        <a href="products?action=viewProducts">Перейти к списку продуктов</a>
+    </div>
 </div>
 </body>
 </html>

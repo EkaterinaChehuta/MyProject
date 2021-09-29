@@ -134,7 +134,7 @@ public class IngredientsReposImplTest {
 
     @Test
     public void getIngredientsByIngredientsNameId() throws SQLException {
-        List<Ingredients> ingredients = new IngredientsReposImpl().getIngredientsByIngredientsNameId(ID_INGREDIENTS_NAME);
+        List<Ingredients> ingredients = new IngredientsReposImpl().getIngredientsListByIngredientsNameId(ID_INGREDIENTS_NAME);
 
         Assert.assertNotNull(ingredients);
     }
