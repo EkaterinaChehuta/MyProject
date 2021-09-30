@@ -10,6 +10,7 @@
         <module name="Product" />
         <module name="Web" />
         <module name="Recipe" />
+        <module name="ShoppingList" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

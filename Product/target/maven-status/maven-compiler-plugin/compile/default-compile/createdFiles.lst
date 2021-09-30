@@ -1,0 +1,7 @@
+Domain\Product.class
+Repos\IndicatorRepos.class
+Repos\ProductReposImpl.class
+Repos\IndicatorReposImpl.class
+Controller\ProductServlet.class
+Domain\Indicator.class
+Repos\ProductRepos.class

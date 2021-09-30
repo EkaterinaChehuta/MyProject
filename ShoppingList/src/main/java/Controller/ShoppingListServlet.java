@@ -1,13 +1,12 @@
 package Controller;
 
+import Domain.ShoppingList;
 import Repos.ProductRepos;
 import Repos.ProductReposImpl;
 import Repos.ShoppingListRepos;
 import Repos.ShoppingListReposImpl;
 import Domain.Product;
-import Domain.ShoppingList;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
