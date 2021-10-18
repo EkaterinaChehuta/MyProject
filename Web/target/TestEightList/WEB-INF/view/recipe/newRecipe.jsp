@@ -1,16 +1,18 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 
-<% Product[] ingredients = new Product[]{} %>
+<%
+    List<Ingredients> ingredients = ${ingredients};
+%>
 
 <html>
 <body>
-
 <table border="1">
+<form action="newRecipe?action=save" method="post">
     <tr>
         <th>
             <h3>Название</h3>
-            <input type="text" name="nameRecipe"/>
+            <input type="text" name="name"/>
         </th>
         <th>
             <h3>Приготовление</h3>
@@ -26,30 +28,19 @@
         <td>
         <h3>Ингредиенты</h3>
         <ul>
-<<<<<<< HEAD:Web/src/main/webapp/WEB-INF/view/recipe/newRecipe.jsp
-            <c:forEach var="ingredient" items="${ingredients}">
+            <c:forEach var="ingredient" items="ingredients">
                 <li>${ingredient.name}</li>
                 <input type="text" name="quantity" />
             </c:forEach>
         </ul>
         <p>
-        <form action="/newRecipe" method="post">
-=======
-            <%
-                for(Product product: ingredients){
-                    out.println("<li>" + product.name + "</li>");
-                }
-             %>
-        </ul>
-        <p>
->>>>>>> parent of 07f5c67 (Добавлены тесты для модулей Product и Recipe):Web/src/main/webapp/WEB-INF/view/newRecipe.jsp
             <select name="productId">
                 <option value="0" selected disabled>Выберите продукт</option>
                 <c:forEach var="product" items="${products}">
                 <option value="${product.id}">${product.name}</option>
                 </c:forEach>
             </select>
-            <button type="submit" name="add">Добавить</button>
+            <button type="submit">Добавить</button>
         </p>
         </td>
     </tr>
@@ -59,7 +50,7 @@
             <button type="submit">Сохранить</button>
         </td>
     </tr>
-
+</form>
 </table>
 </body>
 </html>

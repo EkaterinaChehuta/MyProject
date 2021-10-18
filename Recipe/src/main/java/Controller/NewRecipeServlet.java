@@ -1,6 +1,5 @@
 package Controller;
 
-import Domain.Product;
 import Repos.ProductRepos;
 import Repos.ProductReposImpl;
 import Repos.RecipeRepos;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 @WebServlet("/newRecipe")
@@ -27,6 +27,11 @@ public class NewRecipeServlet extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        req.getRequestDispatcher("WEB-INF/view/newRecipe.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/view/recipe/newRecipe.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("/recipe");
     }
 }

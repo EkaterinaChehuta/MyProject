@@ -1,8 +1,6 @@
 package Controller;
 
-import Database.ConnectionConfig;
 import Domain.Ingredients;
-import Domain.Product;
 import Domain.Recipe;
 import Repos.*;
 
@@ -37,6 +35,6 @@ public class ViewRecipeServlet extends HttpServlet {
         req.setAttribute("recipe", recipe);
         req.setAttribute("ingredients", ingredients);
 
-        req.getRequestDispatcher("WEB-INF/view/viewRecipe.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/view/recipe/viewRecipe.jsp").forward(req, resp);
     }
 }

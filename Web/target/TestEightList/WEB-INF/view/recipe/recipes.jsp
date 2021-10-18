@@ -11,14 +11,24 @@
     <table border="1">
         <tr>
             <th>Наименование</th>
+            <th>Ингредиенты</th>
             <th>Действие</th>
         </tr>
         <c:forEach var="recipe" items="${recipes}">
             <tr>
                 <td>${recipe.name}</td>
                 <td>
-                    <form action="/viewRecipe" method="get">
-                        <button type="submit" name="open">Открыть</button>
+                <c:forEach var="ingredient" items="${ingredients}">
+                    <c:if test="${ingredient.ingredientsName.id == recipe.ingredientsName.id}">
+                        <line>${ingredient.product.name}</line>
+                        <line>${ingredient.quantity}</line>
+                        <line>${ingredient.product.indicator.viewName}</line></br>
+                    </c:if>
+                </c:forEach>
+                </td>
+                <td>
+                    <form action="viewRecipe" method="get">
+                        <button type="submit">Открыть</button>
                         <input type="hidden" value="${recipe.id}" name="id"/>
                     </form>
                 </td>

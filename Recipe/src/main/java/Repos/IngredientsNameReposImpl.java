@@ -1,16 +1,18 @@
 package Repos;
 
 import Database.ConnectionConfig;
+import Domain.Ingredients;
 import Domain.IngredientsName;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class IngredientsNameReposImpl implements IngredientsNameRepos {
     private static final ConnectionConfig connectionConfig = new ConnectionConfig();
 
-    public static final String GET_INGREDIENTS_NAME_BY_ID = "SELECT * FROM ingredients_name WHERE id=?";
+    private static final String GET_INGREDIENTS_NAME_BY_ID = "SELECT * FROM ingredients_name WHERE id=?";
 
     @Override
     public IngredientsName getIngredientsNameById(int id) throws SQLException {

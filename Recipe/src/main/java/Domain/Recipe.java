@@ -11,6 +11,12 @@ public class Recipe {
     public Recipe() {
     }
 
+    public Recipe(String name, String preparation) {
+        this.name = name;
+//        this.ingredientsName = ingredientsName;
+        this.preparation = preparation;
+    }
+
     public Recipe(int id, String name, IngredientsName ingredientsName, String preparation) {
         this.id = id;
         this.name = name;

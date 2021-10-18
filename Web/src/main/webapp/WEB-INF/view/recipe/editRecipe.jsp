@@ -4,11 +4,11 @@
 <html>
 <body>
 <table border="1">
-<form action="newRecipe?action=save" method="post">
+<form action="editRecipe?action=save&id=${recipe.id}" method="post">
     <tr>
         <th>
-            <h3>Название</h3>
-            <input type="text" name="name"/>
+            <h1>Рецепт ${recipe.name}</h1>
+            <input type="text" name="name" placeholder="Введите новое название"/>
         </th>
         <th>
             <h3>Приготовление</h3>
@@ -17,7 +17,7 @@
     <tr>
         <td>jpg</td>
         <td rowspan="2">
-            <textarea name="preparation"></textarea>
+            <textarea name="preparation">${recipe.preparation}</textarea>
         </td>
     </tr>
     <tr>
@@ -25,8 +25,7 @@
         <h3>Ингредиенты</h3>
         <ul>
             <c:forEach var="ingredient" items="${ingredients}">
-                <li>${ingredient.name}</li>
-                <input type="text" name="quantity" />
+                <li>${ingredient.product.name} ${ingredient.quantity} ${ingredient.product.indicator.viewName}</li>
             </c:forEach>
         </ul>
         <p>
@@ -43,10 +42,14 @@
     <tr>
         <td></td>
         <td>
-            <button type="submit">Сохранить</button>
+            <button type="submit">Сохранить изменения</button>
         </td>
     </tr>
 </form>
 </table>
+<form action="editRecipe" method="get">
+    <button type="submit">Отменить изменения</button>
+    <input type="hidden" value="${recipe.id}" name="id"/>
+</form>
 </body>
 </html>

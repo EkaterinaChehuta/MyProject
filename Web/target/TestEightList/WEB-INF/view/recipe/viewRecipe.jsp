@@ -1,6 +1,10 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 
+<%
+    List<Ingredients> ingredients = ${ingredients};
+%>
+
 <html>
 <body>
 <table border="1">
@@ -21,7 +25,7 @@
     <tr>
         <td>
         <h3>Ингредиенты</h3>
-        <c:forEach var="ingredient" items="${ingredients}">
+        <c:forEach var="ingredient" items="ingredients">
             <li>${ingredient.product.name} ${ingredient.quantity} ${ingredient.product.indicator.viewName}</li>
         </c:forEach>
         </td>
@@ -29,11 +33,15 @@
     <tr>
         <td></td>
         <td>
-            <form action="/recipe" method="get">
-                <button type="submit">Вернуться к списку</button>
+            <form action="editRecipe" method="get">
+                <button type="submit">Редактировать рецепт</button>
+                <input type="hidden" value="${recipe.id}" name="id"/>
             </form>
         </td>
     </tr>
 </table>
+<form action="recipe" method="get">
+   <button type="submit">Вернуться к списку</button>
+</form>
 </body>
 </html>

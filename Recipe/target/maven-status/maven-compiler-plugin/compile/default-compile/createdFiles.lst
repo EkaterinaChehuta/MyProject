@@ -3,10 +3,11 @@ Repos\RecipeRepos.class
 Domain\Recipe.class
 Repos\RecipeReposImpl.class
 Domain\Ingredients.class
-Controller\NewRecipeServlet.class
-Repos\IngredientsNameRepos.class
-Repos\IngredientsNameReposImpl.class
 Controller\ViewRecipeServlet.class
 Controller\RecipeServlet.class
+Controller\NewRecipeServlet.class
+Repos\IngredientsNameRepos.class
+Controller\EditRecipeServlet.class
+Repos\IngredientsNameReposImpl.class
 Repos\IngredientsRepos.class
 Repos\IngredientsReposImpl.class

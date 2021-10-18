@@ -1,6 +1,17 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 
+<%@ page import="Domain.Ingredients" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
+
+<%
+    Ingredients ingredient = new Ingredients();
+    List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
+    ingredientsList = (ArrayList)request.getAttribute("ingredients");
+%>
+
 <html>
 <body>
 <table border="1">
@@ -21,19 +32,26 @@
     <tr>
         <td>
         <h3>Ингредиенты</h3>
-        <c:forEach var="ingredient" items="${ingredients}">
-            <li>${ingredient.product.name} ${ingredient.quantity} ${ingredient.product.indicator.viewName}</li>
-        </c:forEach>
+            <%
+            for(int i = 0; i < ingredientsList.size(); i++){
+                ingredient = ingredientsList.get(i);
+                out.println(ingredient.getProduct().getName());
+            }
+            %>
         </td>
     </tr>
     <tr>
         <td></td>
         <td>
-            <form action="/recipe" method="get">
-                <button type="submit">Вернуться к списку</button>
+            <form action="editRecipe" method="get">
+                <button type="submit">Редактировать рецепт</button>
+                <input type="hidden" value="${recipe.id}" name="id"/>
             </form>
         </td>
     </tr>
 </table>
+<form action="recipe" method="get">
+   <button type="submit">Вернуться к списку</button>
+</form>
 </body>
 </html>
