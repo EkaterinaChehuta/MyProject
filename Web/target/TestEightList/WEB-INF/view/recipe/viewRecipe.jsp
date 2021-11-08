@@ -1,9 +1,10 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 
-<%
-    List<Ingredients> ingredients = ${ingredients};
-%>
+<%@ page import="Domain.Ingredients" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
 
 <html>
 <body>
@@ -25,8 +26,12 @@
     <tr>
         <td>
         <h3>Ингредиенты</h3>
-        <c:forEach var="ingredient" items="ingredients">
-            <li>${ingredient.product.name} ${ingredient.quantity} ${ingredient.product.indicator.viewName}</li>
+        <c:forEach var="ingredient" items="${ingredients}">
+            <c:if test="${ingredient.ingredientsName.id == recipe.ingredientsName.id}">
+                <line>${ingredient.product.name}</line>
+                <line>${ingredient.quantity}</line>
+                <line>${ingredient.product.indicator.viewName}</line></br>
+            </c:if>
         </c:forEach>
         </td>
     </tr>
@@ -41,7 +46,7 @@
     </tr>
 </table>
 <form action="recipe" method="get">
-   <button type="submit">Вернуться к списку</button>
+   <button type="submit">Вернуться к списку рецептов</button>
 </form>
 </body>
 </html>

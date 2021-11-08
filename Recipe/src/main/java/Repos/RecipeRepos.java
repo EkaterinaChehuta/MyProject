@@ -19,4 +19,8 @@ public interface RecipeRepos {
     void updateRecipePreparation(int id, String preparation) throws SQLException;
 
     void updateRecipeIngredients(int ingredientsNameId, List<Ingredients> ingredients) throws SQLException;
+
+    void addNewRecipe(Recipe recipe) throws SQLException;
+
+    void deleteRecipe(int id) throws SQLException;
 }

@@ -9,6 +9,12 @@ public class Ingredients {
     public Ingredients() {
     }
 
+    public Ingredients(Product product, int quantity, IngredientsName ingredientsName) {
+        this.product = product;
+//        this.quantity = quantity;
+        this.ingredientsName = ingredientsName;
+    }
+
     public Ingredients(int id, Product product, int quantity, IngredientsName ingredientsName) {
         this.id = id;
         this.product = product;

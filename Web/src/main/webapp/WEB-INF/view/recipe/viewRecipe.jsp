@@ -6,12 +6,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 
-<%
-    Ingredients ingredient = new Ingredients();
-    List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
-    ingredientsList = (ArrayList)request.getAttribute("ingredients");
-%>
-
 <html>
 <body>
 <table border="1">
@@ -32,12 +26,13 @@
     <tr>
         <td>
         <h3>Ингредиенты</h3>
-            <%
-            for(int i = 0; i < ingredientsList.size(); i++){
-                ingredient = ingredientsList.get(i);
-                out.println(ingredient.getProduct().getName());
-            }
-            %>
+        <c:forEach var="ingredient" items="${ingredients}">
+            <c:if test="${ingredient.ingredientsName.id == recipe.ingredientsName.id}">
+                <line>${ingredient.product.name}</line>
+                <line>${ingredient.quantity}</line>
+                <line>${ingredient.product.indicator.viewName}</line></br>
+            </c:if>
+        </c:forEach>
         </td>
     </tr>
     <tr>
@@ -51,7 +46,7 @@
     </tr>
 </table>
 <form action="recipe" method="get">
-   <button type="submit">Вернуться к списку</button>
+   <button type="submit">Вернуться к списку рецептов</button>
 </form>
 </body>
 </html>

@@ -22,6 +22,8 @@ public class RecipeReposImpl implements RecipeRepos {
     public static final String GET_RECIPE_BY_NAME = "SELECT * FROM recipe WHERE name=?";
     public static final String UPDATE_RECIPE_NAME = "UPDATE recipe SET name=? WHERE id=?";
     public static final String UPDATE_RECIPE_PREPARATION = "UPDATE recipe SET preparation=? WHERE id=?";
+    public static final String INSERT_RECIPE = "INSERT INTO recipe(name, ingredients_name_id, preparation) VALUES(?, ?, ?)";
+    public static final String DELETE_RECIPE = "DELETE FROM recipe WHERE id=?";
 
     @Override
     public List<Recipe> allRecipes() throws SQLException {
@@ -114,5 +116,27 @@ public class RecipeReposImpl implements RecipeRepos {
     @Override
     public void updateRecipeIngredients(int ingredientsNameId, List<Ingredients> ingredients) throws SQLException {
         ingredientsRepos.updateIngredients(ingredientsNameId, ingredients);
+    }
+
+    @Override
+    public void addNewRecipe(Recipe recipe) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement(INSERT_RECIPE);
+
+        preparedStatement.setString(1, recipe.getName());
+        preparedStatement.setInt(2, recipe.getIngredientsName().getId());
+        preparedStatement.setString(3, recipe.getPreparation());
+
+        preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public void deleteRecipe(int id) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement(DELETE_RECIPE);
+
+        preparedStatement.setInt(1, id);
+
+        preparedStatement.executeUpdate();
     }
 }

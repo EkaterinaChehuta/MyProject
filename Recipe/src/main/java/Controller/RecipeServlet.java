@@ -39,4 +39,21 @@ public class RecipeServlet extends HttpServlet {
         req.getRequestDispatcher("WEB-INF/view/recipe/recipes.jsp")
                 .forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+
+        switch (action) {
+            case "remove" :
+                try {
+                    recipeRepos.deleteRecipe(Integer.parseInt(req.getParameter("id")));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                resp.sendRedirect("/recipe");
+                break;
+        }
+    }
 }

@@ -61,7 +61,7 @@ public class EditRecipeServlet extends HttpServlet {
                         recipeRepos.updateRecipeName(Integer.parseInt(id), name);
                     }
 
-                    if (req.getParameter("preparation") != null && req.getParameter("preparation").isEmpty()) {
+                    if (req.getParameter("preparation") != null && !req.getParameter("preparation").isEmpty()) {
                         String preparation = new String(req.getParameter("preparation")
                                 .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 

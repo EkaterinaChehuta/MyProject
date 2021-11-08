@@ -7,6 +7,10 @@ public class IngredientsName {
     public IngredientsName() {
     }
 
+    public IngredientsName(String name) {
+        this.name = name;
+    }
+
     public IngredientsName(int id, String name) {
         this.id = id;
         this.name = name;

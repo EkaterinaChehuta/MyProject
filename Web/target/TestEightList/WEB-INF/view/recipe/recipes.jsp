@@ -31,6 +31,9 @@
                         <button type="submit">Открыть</button>
                         <input type="hidden" value="${recipe.id}" name="id"/>
                     </form>
+                    <form action="recipe?action=remove&id=${recipe.id}" method="post">
+                        <button type="submit">Удалить</button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>

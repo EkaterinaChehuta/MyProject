@@ -20,6 +20,7 @@ public class IngredientsReposImpl implements IngredientsRepos {
 
     private static final String GET_INGREDIENTS_BY_INGREDIENTS_NAME_ID = "SELECT * FROM ingredients WHERE ingredients_name_id = ?";
     private static final String GET_INGREDIENTS = "SELECT * FROM ingredients";
+    private static final String INSERT_INGREDIENT = "INSERT INTO ingredients(ingredients_name_id, product_id, quantity) VALUES(?, ?, ?)";
 
     @Override
     public List<Ingredients> getIngredientsListByIngredientsNameId(int searchId) throws SQLException {
@@ -69,5 +70,17 @@ public class IngredientsReposImpl implements IngredientsRepos {
         List<Ingredients> currentIngredients = getIngredientsListByIngredientsNameId(ingredientNameId);
 
         currentIngredients.retainAll(newIngredients);
+    }
+
+    @Override
+    public void addNewIngredient(Product product, IngredientsName ingredientsName, int quantity) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement(INSERT_INGREDIENT);
+
+        preparedStatement.setInt(1, ingredientsName.getId());
+        preparedStatement.setInt(2, product.getId());
+        preparedStatement.setInt(3, quantity);
+
+        preparedStatement.executeUpdate();
     }
 }
