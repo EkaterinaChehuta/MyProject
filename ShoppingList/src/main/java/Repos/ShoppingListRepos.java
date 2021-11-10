@@ -1,6 +1,5 @@
 package Repos;
 
-import Domain.Product;
 import Domain.ShoppingList;
 
 import java.sql.SQLException;
@@ -10,6 +9,7 @@ public interface ShoppingListRepos{
     List<ShoppingList> allShoppingList() throws SQLException;
     void addProductToList(ShoppingList shoppingList) throws SQLException;
     void removeProductToList(int id) throws SQLException;
-    void saveChanges(int id, int quantity) throws SQLException;
-    Product getProductById(int id) throws SQLException;
+    void saveQuantity(int id, int quantity) throws SQLException;
+    void saveIsPurchased(int id, boolean isPurchased) throws SQLException;
+    ShoppingList getProductFromList(int id) throws SQLException;
 }

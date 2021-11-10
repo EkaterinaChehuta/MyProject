@@ -1,4 +1,3 @@
 Domain\ShoppingListTest.class
 Domain\ProductTest.class
 Domain\IndicatorTest.class
-Repos\ShoppingListReposImplTest.class

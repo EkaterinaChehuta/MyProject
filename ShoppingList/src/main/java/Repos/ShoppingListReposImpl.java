@@ -1,6 +1,5 @@
 package Repos;
 
-
 import Database.ConnectionConfig;
 import Domain.Product;
 import Domain.ShoppingList;
@@ -16,13 +15,14 @@ import java.util.List;
 
 public class ShoppingListReposImpl implements ShoppingListRepos {
     private static final ConnectionConfig connectionConfig = new ConnectionConfig();
-    private final ProductRepos productRepos = new ProductReposImpl();
+    private static final ProductRepos productRepos = new ProductReposImpl();
 
-    public static final String GET_SHOPPING_LIST = "SELECT * FROM shopping_list";
-    public static final String INSERT_SHOPPING_LIST = "INSERT INTO shopping_list (product_id) VALUES(?)";
-    public static final String DELETE_SHOPPING_LIST = "DELETE FROM shopping_list WHERE id=?";
-    public static final String UPDATE_SHOPPING_LIST = "UPDATE shopping_list SET quantity=? WHERE id=?";
-    public static final String GET_SHOPPING_LIST_BY_PRODUCT_ID = "SELECT * FROM shopping_list WHERE product_id=?";
+    private static final String GET_SHOPPING_LIST = "SELECT * FROM shopping_list";
+    private static final String INSERT_SHOPPING_LIST = "INSERT INTO shopping_list (product_id, quantity, is_purchased) VALUES(?, ?, ?)";
+    private static final String DELETE_SHOPPING_LIST = "DELETE FROM shopping_list WHERE id=?";
+    private static final String UPDATE_IS_PURCHASED_IN_SHOPPING_LIST = "UPDATE shopping_list SET is_purchased=? WHERE id=?";
+    private static final String UPDATE_QUANTITY_IN_SHOPPING_LIST = "UPDATE shopping_list SET quantity=? WHERE id=?";
+    private static final String GET_SHOPPING_LIST_BY_PRODUCT_ID = "SELECT * FROM shopping_list WHERE product_id=?";
 
     @Override
     public List<ShoppingList> allShoppingList() throws SQLException {
@@ -62,24 +62,26 @@ public class ShoppingListReposImpl implements ShoppingListRepos {
                 .prepareStatement(INSERT_SHOPPING_LIST);
 
         preparedStatement.setInt(1, shoppingList.getProduct().getId());
+        preparedStatement.setInt(2, shoppingList.getQuantity());
+        preparedStatement.setBoolean(3, shoppingList.isPurchased());
 
         preparedStatement.executeUpdate();
     }
 
     @Override
     public void removeProductToList(int id) throws SQLException {
-        PreparedStatement preparedStatement =connectionConfig.getConnection()
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
                 .prepareStatement(DELETE_SHOPPING_LIST);
 
-        preparedStatement.setInt(1,id);
+        preparedStatement.setInt(1, id);
 
         preparedStatement.executeUpdate();
     }
 
     @Override
-    public void saveChanges(int id, int quantity) throws SQLException {
+    public void saveQuantity(int id, int quantity) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
-                .prepareStatement(UPDATE_SHOPPING_LIST);
+                .prepareStatement(UPDATE_QUANTITY_IN_SHOPPING_LIST);
 
         preparedStatement.setInt(1, quantity);
         preparedStatement.setInt(2, id);
@@ -88,20 +90,35 @@ public class ShoppingListReposImpl implements ShoppingListRepos {
     }
 
     @Override
-    public Product getProductById(int productId) throws SQLException {
+    public void saveIsPurchased(int id, boolean isPurchased) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement(UPDATE_IS_PURCHASED_IN_SHOPPING_LIST);
+
+        preparedStatement.setBoolean(1, isPurchased);
+        preparedStatement.setInt(2, id);
+
+        preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public ShoppingList getProductFromList(int idProduct) throws SQLException {
         PreparedStatement preparedStatement = connectionConfig.getConnection()
                 .prepareStatement(GET_SHOPPING_LIST_BY_PRODUCT_ID);
 
-        preparedStatement.setInt(1, productId);
+        preparedStatement.setInt(1, idProduct);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        Product product = null;
+        ShoppingList shoppingList = null;
 
-        while (resultSet.next()){
-            product = productRepos.getProductById(productId);
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            Product product = productRepos.getProductById(idProduct);
+            int quantity = resultSet.getInt("quantity");
+
+            shoppingList = new ShoppingList(id, product, quantity, false);
         }
 
-        return product;
+        return shoppingList;
     }
 }

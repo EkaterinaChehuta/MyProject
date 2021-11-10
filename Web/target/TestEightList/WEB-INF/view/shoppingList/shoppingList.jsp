@@ -16,9 +16,13 @@
         <c:forEach var="shop" items="${shoppingList}">
         <tr>
             <td>
+                <form action="/shoppingList" method="post">
                     <input type="hidden" value="${shop.id}" name="id"/>
-                    <input type="checkbox" name="isPurchased" />
+                    <input type="checkbox" name="purchased"
+                      <c:if test="${shop.purchased}">checked</c:if>/>
+                      <button type="submit" name="isPurchased">отправить</button>
                     <%-- как установить галочку если поле isPurchased == true? --%>
+                </form>
             </td>
             <td>${shop.product.name}</td>
             <td>
@@ -50,7 +54,7 @@
         <button type="submit" name="addProductToList">Добавить в список</button>
     </form>
     <div>
-        <a href="products?action=addNewProduct">Добавить новый продукт</a>
+        <a href="products/action=addNewProduct">Добавить новый продукт</a>
         <a href="products?action=viewProducts">Перейти к списку продуктов</a>
         <a href="recipe">Перейти к списку рецептов</a>
     </div>

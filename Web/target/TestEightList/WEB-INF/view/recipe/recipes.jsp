@@ -34,10 +34,17 @@
                     <form action="recipe?action=remove&id=${recipe.id}" method="post">
                         <button type="submit">Удалить</button>
                     </form>
+                    <form action="/shoppingList" method="post">
+                        <button type="submit" name="addProductsToList">Добавить в список</button>
+                        <input type="hidden" value="${recipe.id}" name="id"/>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    <form action="shoppingList" method="get">
+        <button type="submit">Перейти к списку покупок</button>
+    </form>
 </div>
 </body>
 </html>

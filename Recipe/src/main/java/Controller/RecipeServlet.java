@@ -1,8 +1,6 @@
 package Controller;
 
-import Domain.Ingredients;
-import Domain.Product;
-import Domain.Recipe;
+import Domain.*;
 import Repos.*;
 
 import javax.servlet.ServletException;
@@ -45,7 +43,8 @@ public class RecipeServlet extends HttpServlet {
         String action = req.getParameter("action");
 
         switch (action) {
-            case "remove" :
+            case "remove":
+                //todo добавить подтветждение удаления продукта
                 try {
                     recipeRepos.deleteRecipe(Integer.parseInt(req.getParameter("id")));
                 } catch (SQLException throwables) {

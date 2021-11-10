@@ -3,7 +3,11 @@
 
 <html>
 <body>
-<div><h1>Список рецептов</h1></div>
+  <div><h3>
+    <a href="shoppingList">Список покупок</a>
+    <a href="products?action=viewProducts">Список продуктов</a>
+    <a href="recipe">Список рецептов</a>
+  </h3></div>
 <div>
     <form action="/newRecipe" method="get">
         <button type="submit" name="new">Добавить рецепт</button>
@@ -33,6 +37,10 @@
                     </form>
                     <form action="recipe?action=remove&id=${recipe.id}" method="post">
                         <button type="submit">Удалить</button>
+                    </form>
+                    <form action="/shoppingList" method="post">
+                        <button type="submit" name="addProductsToList">Добавить в список</button>
+                        <input type="hidden" value="${recipe.id}" name="id"/>
                     </form>
                 </td>
             </tr>

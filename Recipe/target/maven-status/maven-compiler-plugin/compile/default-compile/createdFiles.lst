@@ -9,6 +9,5 @@ Controller\NewRecipeServlet.class
 Repos\IngredientsNameRepos.class
 Controller\EditRecipeServlet.class
 Repos\IngredientsNameReposImpl.class
-Controller\ListServlet.class
 Repos\IngredientsRepos.class
 Repos\IngredientsReposImpl.class

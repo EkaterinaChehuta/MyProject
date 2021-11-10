@@ -3,7 +3,14 @@
 
 <html>
 <body>
-<div><h1>Список продуктов</h1></div>
+  <div><h3>
+    <a href="shoppingList">Список покупок</a>
+    <a href="products?action=viewProducts">Список продуктов</a>
+    <a href="recipe">Список рецептов</a>
+  </h3></div>
+  <form action="/products" method="post">
+      <button type="submit" name="addNewProduct">Добавить новый продукт</button>
+  </form>
     <table border="1">
         <tr>
             <th>Наименование</th>
