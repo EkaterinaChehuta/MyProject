@@ -1,4 +1,6 @@
 Domain\Product.class
+Controller\EditProductServlet.class
+Controller\NewProductServlet.class
 Repos\IndicatorRepos.class
 Repos\ProductReposImpl.class
 Repos\IndicatorReposImpl.class

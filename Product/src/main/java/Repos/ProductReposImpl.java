@@ -5,6 +5,7 @@ import Database.ConnectionConfig;
 import Domain.Indicator;
 import Domain.Product;
 
+import javax.servlet.annotation.WebServlet;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

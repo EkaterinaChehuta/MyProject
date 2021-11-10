@@ -3,7 +3,11 @@
 
 <html>
 <body>
-<div><h1>Список рецептов</h1></div>
+  <div><h3>
+    <a href="shoppingList">Список покупок</a>
+    <a href="products?action=viewProducts">Список продуктов</a>
+    <a href="recipe">Список рецептов</a>
+  </h3></div>
 <div>
     <form action="/newRecipe" method="get">
         <button type="submit" name="new">Добавить рецепт</button>
@@ -42,9 +46,6 @@
             </tr>
         </c:forEach>
     </table>
-    <form action="shoppingList" method="get">
-        <button type="submit">Перейти к списку покупок</button>
-    </form>
 </div>
 </body>
 </html>

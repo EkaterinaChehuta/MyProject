@@ -1,6 +1,5 @@
 package Controller;
 
-import Domain.Ingredients;
 import Domain.IngredientsName;
 import Domain.Product;
 import Domain.Recipe;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 @WebServlet("/newRecipe")
 public class NewRecipeServlet extends HttpServlet {

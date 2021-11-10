@@ -3,7 +3,11 @@
 
 <html>
 <body>
-<div><h1>Список продуктов</h1></div>
+<div><h3>
+  <a href="shoppingList">Список покупок</a>
+  <a href="products?action=viewProducts">Список продуктов</a>
+  <a href="recipe">Список рецептов</a>
+</h3></div>
 <div>
     <table border="1">
         <tr>
@@ -18,8 +22,7 @@
             <td>
                 <form action="/shoppingList" method="post">
                     <input type="hidden" value="${shop.id}" name="id"/>
-                    <input type="checkbox" name="purchased"
-                      <c:if test="${shop.purchased}">checked</c:if>/>
+                    <input type="checkbox" name="purchased" <c:if test="${shop.purchased}">checked</c:if>/>
                       <button type="submit" name="isPurchased">отправить</button>
                     <%-- как установить галочку если поле isPurchased == true? --%>
                 </form>
@@ -53,11 +56,9 @@
         </select>
         <button type="submit" name="addProductToList">Добавить в список</button>
     </form>
-    <div>
-        <a href="products/action=addNewProduct">Добавить новый продукт</a>
-        <a href="products?action=viewProducts">Перейти к списку продуктов</a>
-        <a href="recipe">Перейти к списку рецептов</a>
-    </div>
 </div>
+<form action="/newProduct" method="get">
+    <button type="submit">Добавить новый продукт</button>
+</form>
 </body>
 </html>
