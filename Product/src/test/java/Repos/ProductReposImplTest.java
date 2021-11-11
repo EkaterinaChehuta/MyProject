@@ -128,21 +128,20 @@ public class ProductReposImplTest {
         Assert.assertEquals(product.getId(), ID_PRODUCT);
     }
 
-//    @Test
-//    public void addNewProduct() {
-//        try (PreparedStatement preparedStatement = new ConnectionConfig().getConnection()
-//                .prepareStatement(INSERT_TEST_PRODUCT)) {
-//            preparedStatement.setInt(1, ID_PRODUCT);
-//            preparedStatement.setString(2, NAME_PRODUCT);
-//            preparedStatement.setInt(3, ID_INDICATOR);
-//            preparedStatement.setInt(4, ID_PRODUCT_CATEGORY);
-//
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//
-//            Assert.assertNotNull(resultSet);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//
-//    }
+    @Test
+    public void addNewProduct() {
+        try (PreparedStatement preparedStatement = new ConnectionConfig().getConnection()
+                .prepareStatement("SELECT * FROM product WHERE id=? AND name=? AND indicator_id=? AND product_category_id=?")) {
+            preparedStatement.setInt(1, ID_PRODUCT);
+            preparedStatement.setString(2, NAME_PRODUCT);
+            preparedStatement.setInt(3, ID_INDICATOR);
+            preparedStatement.setInt(4, ID_PRODUCT_CATEGORY);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            Assert.assertNotNull(resultSet);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

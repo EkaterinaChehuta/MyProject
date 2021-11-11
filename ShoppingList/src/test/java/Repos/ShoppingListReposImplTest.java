@@ -1,10 +1,7 @@
 package Repos;
 
 import Database.ConnectionConfig;
-import Domain.IndicatorTest;
-import Domain.ProductTest;
-import Domain.ShoppingList;
-import Domain.ShoppingListTest;
+import Domain.*;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -16,10 +13,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ShoppingListReposImplTest {
-    //todo product_category
     private static final int ID_INDICATOR = IndicatorTest.getTestId();
     private static final String NAME_INDICATOR = IndicatorTest.getTestName();
     private static final String VIEW_NAME_INDICATOR = IndicatorTest.getTestViewName();
+
+    private static final int ID_PRODUCT_CATEGORY = ProductCategoryTest.getTestId();
+    private static final String NAME_PRODUCT_CATEGORY = ProductCategoryTest.getTestName();
 
     private static final int ID_PRODUCT = ProductTest.getTestId();
     private static final String NAME_PRODUCT = ProductTest.getTestName();
@@ -32,10 +31,14 @@ public class ShoppingListReposImplTest {
             "INSERT INTO indicator(id, name, view_name) VALUES(?, ?, ?)";
     private static final String DELETE_TEST_INDICATOR =
             "DELETE FROM indicator WHERE id=? AND name=? AND view_name=?";
+    private static final String INSERT_TEST_PRODUCT_CATEGORY =
+            "INSERT INTO product_category(id, name) VALUES(?, ?)";
+    private static final String DELETE_TEST_PRODUCT_CATEGORY =
+            "DELETE FROM product_category WHERE id=? AND name=?";
     private static final String INSERT_TEST_PRODUCT =
-            "INSERT INTO product(id, name, indicator_id) VALUES(?, ?, ?)";
+            "INSERT INTO product(id, name, indicator_id, product_category_id) VALUES(?, ?, ?, ?)";
     private static final String DELETE_TEST_PRODUCT =
-            "DELETE FROM product WHERE id=? AND name=? AND indicator_id=?";
+            "DELETE FROM product WHERE id=? AND name=? AND indicator_id=? AND product_category_id=?";
     private static final String INSERT_TEST_SHOPPING_LIST =
             "INSERT INTO shopping_list(id, product_id, quantity, is_purchased) VALUES(?, ?, ?, ?)";
     private static final String DELETE_TEST_SHOPPING_LIST =
@@ -54,10 +57,20 @@ public class ShoppingListReposImplTest {
         }
 
         try (PreparedStatement preparedStatement = new ConnectionConfig().getConnection()
+                .prepareStatement(INSERT_TEST_PRODUCT_CATEGORY)) {
+            preparedStatement.setInt(1, ID_PRODUCT_CATEGORY);
+            preparedStatement.setString(2, NAME_PRODUCT_CATEGORY);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        try (PreparedStatement preparedStatement = new ConnectionConfig().getConnection()
                 .prepareStatement(INSERT_TEST_PRODUCT)) {
             preparedStatement.setInt(1, ID_PRODUCT);
             preparedStatement.setString(2, NAME_PRODUCT);
             preparedStatement.setInt(3, ID_INDICATOR);
+            preparedStatement.setInt(4, ID_PRODUCT_CATEGORY);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -93,6 +106,7 @@ public class ShoppingListReposImplTest {
             preparedStatement.setInt(1, ID_PRODUCT);
             preparedStatement.setString(2, NAME_PRODUCT);
             preparedStatement.setInt(3, ID_INDICATOR);
+            preparedStatement.setInt(4, ID_PRODUCT_CATEGORY);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -103,6 +117,15 @@ public class ShoppingListReposImplTest {
             preparedStatement.setInt(1, ID_INDICATOR);
             preparedStatement.setString(2, NAME_INDICATOR);
             preparedStatement.setString(3, VIEW_NAME_INDICATOR);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        try (PreparedStatement preparedStatement = new ConnectionConfig().getConnection()
+                .prepareStatement(DELETE_TEST_PRODUCT_CATEGORY)) {
+            preparedStatement.setInt(1, ID_PRODUCT_CATEGORY);
+            preparedStatement.setString(2, NAME_PRODUCT_CATEGORY);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

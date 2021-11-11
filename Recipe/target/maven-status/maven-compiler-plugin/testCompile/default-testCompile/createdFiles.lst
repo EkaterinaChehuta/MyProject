@@ -4,5 +4,6 @@ Repos\RecipeReposImplTest.class
 Domain\IngredientsTest.class
 Domain\IndicatorTest.class
 Repos\IngredientsReposImplTest.class
+Domain\ProductCategoryTest.class
 Domain\RecipeTest.class
 Domain\IngredientsNameTest.class

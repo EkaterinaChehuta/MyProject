@@ -1,3 +1,4 @@
 Domain\ShoppingListTest.class
 Domain\ProductTest.class
 Domain\IndicatorTest.class
+Domain\ProductCategoryTest.class

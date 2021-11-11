@@ -11,7 +11,7 @@
   <form action="/newProduct" method="get">
       <button type="submit">Добавить новый продукт</button>
   </form>
-  <form action="products?search=${productCategory.id}" method="get">
+  <form action="products" method="get">
     <select name="productCategory">
       <option value="0" selected disabled>Выберите категорию продукта</option>
       <c:forEach var="productCategory" items="${productCategories}">
@@ -19,6 +19,9 @@
       </c:forEach>
     </select>
     <button type="submit">Фильтровать</button>
+  </form>
+  <form action="products" method="get">
+    <button type="submit">Весь список</button>
   </form>
     <table border="1">
         <tr>
