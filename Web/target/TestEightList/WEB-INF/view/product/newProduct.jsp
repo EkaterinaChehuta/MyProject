@@ -12,6 +12,12 @@
         <option value="${indicator.id}">${indicator.viewName}</option>
         </c:forEach>
     </select>
+    <select name="productCategory">
+        <option value="0" selected disabled>Выберите категорию продукта</option>
+        <c:forEach var="productCategory" items="${productCategories}">
+        <option value="${productCategory.id}">${productCategory.name}</option>
+        </c:forEach>
+    </select>
     <button type="submit" name="save">Сохранить</button>
 </form>
 <a href="shoppingList">Вернуться к списку покупок</a>

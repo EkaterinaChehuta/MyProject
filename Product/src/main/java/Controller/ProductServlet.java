@@ -1,11 +1,7 @@
 package Controller;
 
-import Repos.IndicatorRepos;
-import Repos.IndicatorReposImpl;
 import Repos.ProductRepos;
 import Repos.ProductReposImpl;
-import Domain.Indicator;
-import Domain.Product;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

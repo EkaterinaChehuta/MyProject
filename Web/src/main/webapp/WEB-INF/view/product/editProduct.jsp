@@ -12,6 +12,12 @@
             <option value="${indicator.id}">${indicator.viewName}</option>
             </c:forEach>
         </select>
+        <select name="productCategory" >
+            <option value="0" selected disabled>${product.productCategory.name}</option>
+            <c:forEach var="productCategory" items="${productCategories}">
+            <option value="${productCategory.id}">${productCategory.name}</option>
+            </c:forEach>
+        </select>
         <button type="submit">Сохранить</button>
     </form>
     <form action="products" method="get">

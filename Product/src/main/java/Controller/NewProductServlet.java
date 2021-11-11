@@ -2,10 +2,8 @@ package Controller;
 
 import Domain.Indicator;
 import Domain.Product;
-import Repos.IndicatorRepos;
-import Repos.IndicatorReposImpl;
-import Repos.ProductRepos;
-import Repos.ProductReposImpl;
+import Domain.ProductCategory;
+import Repos.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +18,8 @@ import java.sql.SQLException;
 public class NewProductServlet extends HttpServlet {
     private static final ProductRepos productRepos = new ProductReposImpl();
     private static final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
+    private static final ProductCategoryRepos productCategoryRepos = new ProductCategoryReposImpl();
+
     //todo ввести константы для сообщений
     String errorMessage = "";
 
@@ -27,6 +27,7 @@ public class NewProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.setAttribute("indicators", indicatorRepos.allIndicator());
+            req.setAttribute("productCategories", productCategoryRepos.allProductCategory());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -49,7 +50,8 @@ public class NewProductServlet extends HttpServlet {
         //todo возвращать в зависимости откуда пришли (из рецепта или из продуктов)
         if(req.getParameter("save") != null){
             if (req.getParameter("name") == null || req.getParameter("name").isEmpty()
-                    || req.getParameter("indicator") == null || req.getParameter("indicator").isEmpty()) {
+                    || req.getParameter("indicator") == null || req.getParameter("indicator").isEmpty()
+                    || req.getParameter("productCategory") == null || req.getParameter("productCategory").isEmpty()) {
                 errorMessage = "no parameter";
                 resp.sendRedirect("newProduct");
                 return;
@@ -58,6 +60,8 @@ public class NewProductServlet extends HttpServlet {
             String name = new String(req.getParameter("name")
                     .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             String indicatorId = new String(req.getParameter("indicator")
+                    .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            String productCategoryId = new String(req.getParameter("productCategory")
                     .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
             try {
@@ -73,8 +77,9 @@ public class NewProductServlet extends HttpServlet {
 
             try {
                 Indicator indicator = indicatorRepos.getIndicatorById(Integer.parseInt(indicatorId));
+                ProductCategory productCategory = productCategoryRepos.getProductCategoryById(Integer.parseInt(productCategoryId));
 
-                productRepos.addNewProduct(new Product(name, indicator));
+                productRepos.addNewProduct(new Product(name, indicator, productCategory));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -84,6 +89,7 @@ public class NewProductServlet extends HttpServlet {
     }
 
     private boolean isCopyProduct(String name) throws SQLException {
+        //todo добавить проверку на категорию и добавлять в сообщения
         Product product = productRepos.getProductByName(name);
         return product != null;
     }

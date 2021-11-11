@@ -1,10 +1,7 @@
 package Controller;
 
 import Domain.Product;
-import Repos.IndicatorRepos;
-import Repos.IndicatorReposImpl;
-import Repos.ProductRepos;
-import Repos.ProductReposImpl;
+import Repos.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +16,7 @@ import java.sql.SQLException;
 public class EditProductServlet extends HttpServlet {
     private static final ProductRepos productRepos = new ProductReposImpl();
     private static final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
+    private static final ProductCategoryRepos productCategoryRepos = new ProductCategoryReposImpl();
     //todo ввести константы для сообщений
     String errorMessage = "";
 
@@ -30,6 +28,7 @@ public class EditProductServlet extends HttpServlet {
         try {
             req.setAttribute("product", productRepos.getProductById(id));
             req.setAttribute("indicators", indicatorRepos.allIndicator());
+            req.setAttribute("productCategories", productCategoryRepos.allProductCategory());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -73,6 +72,13 @@ public class EditProductServlet extends HttpServlet {
             editIndicatorProduct(id, Integer.parseInt(indicatorId));
         }
 
+        if(req.getParameter("productCategory") != null && !req.getParameter("productCategory").isEmpty()) {
+            String productCategoryId = new String(req.getParameter("productCategory")
+                    .getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+
+            editProductCategoryProduct(id, Integer.parseInt(productCategoryId));
+        }
+
         resp.sendRedirect("/products");
     }
 
@@ -98,4 +104,11 @@ public class EditProductServlet extends HttpServlet {
         }
     }
 
+    private void editProductCategoryProduct(int id, int productCategoryId) {
+        try {
+            productRepos.updateCategoryProduct(id, productCategoryId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

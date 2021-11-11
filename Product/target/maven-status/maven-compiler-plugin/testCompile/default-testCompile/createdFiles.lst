@@ -1,4 +1,5 @@
 Domain\ProductTest.class
 Repos\IndicatorReposImplTest.class
 Domain\IndicatorTest.class
+Domain\ProductCategoryTest.class
 Repos\ProductReposImplTest.class

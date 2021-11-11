@@ -19,4 +19,6 @@ public interface ProductRepos {
     void updateProduct(int id, String name) throws SQLException;
 
     void updateProduct(int productId, int indicatorId) throws SQLException;
+
+    void updateCategoryProduct(int productId, int productCategoryId) throws SQLException;
 }

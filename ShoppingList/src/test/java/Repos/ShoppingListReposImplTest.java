@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ShoppingListReposImplTest {
+    //todo product_category
     private static final int ID_INDICATOR = IndicatorTest.getTestId();
     private static final String NAME_INDICATOR = IndicatorTest.getTestName();
     private static final String VIEW_NAME_INDICATOR = IndicatorTest.getTestViewName();

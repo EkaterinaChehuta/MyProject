@@ -4,23 +4,25 @@ package Repos;
 import Database.ConnectionConfig;
 import Domain.Indicator;
 import Domain.Product;
+import Domain.ProductCategory;
 
-import javax.servlet.annotation.WebServlet;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductReposImpl implements ProductRepos {
     private static final ConnectionConfig connectionConfig = new ConnectionConfig();
-    private final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
+    private static final IndicatorRepos indicatorRepos = new IndicatorReposImpl();
+    private static final ProductCategoryRepos productCategoryRepos = new ProductCategoryReposImpl();
 
     private static final String GET_PRODUCT = "SELECT * FROM product";
     private static final String GET_PRODUCT_BY_NAME = "SELECT * FROM product WHERE name=?";
     private static final String GET_PRODUCT_BY_ID = "SELECT * FROM product WHERE id=?";
-    private static final String INSERT_PRODUCT = "INSERT INTO product (name, indicator_id) VALUES (?, ?)";
+    private static final String INSERT_PRODUCT = "INSERT INTO product (name, indicator_id, product_category_id) VALUES (?, ?, ?)";
     private static final String DELETE_PRODUCT = "DELETE FROM product WHERE id=?";
     private static final String UPDATE_PRODUCT_NAME = "UPDATE product SET name=? WHERE id=?";
     private static final String UPDATE_PRODUCT_INDICATOR = "UPDATE product SET indicator_id=? WHERE id=?";
+    private static final String UPDATE_PRODUCT_CATEGORY = "UPDATE product SET product_category_id=? WHERE id=?";
 
     @Override
     public List<Product> allProduct() throws SQLException {
@@ -34,10 +36,12 @@ public class ProductReposImpl implements ProductRepos {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             int indicatorId = resultSet.getInt("indicator_id");
+            int productCategoryId = resultSet.getInt("product_category_id");
 
             Indicator indicator = indicatorRepos.getIndicatorById(indicatorId);
+            ProductCategory productCategory = productCategoryRepos.getProductCategoryById(productCategoryId);
 
-            Product product = new Product(id, name, indicator);
+            Product product = new Product(id, name, indicator, productCategory);
 
             products.add(product);
 
@@ -58,10 +62,12 @@ public class ProductReposImpl implements ProductRepos {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             int indicatorId = resultSet.getInt("indicator_id");
+            int productCategoryId = resultSet.getInt("product_category_id");
 
             Indicator indicator = indicatorRepos.getIndicatorById(indicatorId);
+            ProductCategory productCategory = productCategoryRepos.getProductCategoryById(productCategoryId);
 
-            return new Product(id, name, indicator);
+            return new Product(id, name, indicator, productCategory);
         }
 
         return null;
@@ -80,10 +86,12 @@ public class ProductReposImpl implements ProductRepos {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             int indicatorId = resultSet.getInt("indicator_id");
+            int productCategoryId = resultSet.getInt("product_category_id");
 
             Indicator indicator = indicatorRepos.getIndicatorById(indicatorId);
+            ProductCategory productCategory = productCategoryRepos.getProductCategoryById(productCategoryId);
 
-            return new Product(id, name, indicator);
+            return new Product(id, name, indicator, productCategory);
         }
 
         return null;
@@ -96,6 +104,7 @@ public class ProductReposImpl implements ProductRepos {
 
         preparedStatement.setString(1, product.getName());
         preparedStatement.setInt(2, product.getIndicator().getId());
+        preparedStatement.setInt(3, product.getProductCategory().getId());
 
         preparedStatement.executeUpdate();
     }
@@ -127,6 +136,17 @@ public class ProductReposImpl implements ProductRepos {
                 .prepareStatement(UPDATE_PRODUCT_INDICATOR);
 
         preparedStatement.setInt(1, indicatorId);
+        preparedStatement.setInt(2, productId);
+
+        preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public void updateCategoryProduct(int productId, int productCategoryId) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement(UPDATE_PRODUCT_CATEGORY);
+
+        preparedStatement.setInt(1, productCategoryId);
         preparedStatement.setInt(2, productId);
 
         preparedStatement.executeUpdate();
