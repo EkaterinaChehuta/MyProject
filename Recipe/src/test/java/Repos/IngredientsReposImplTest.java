@@ -28,7 +28,6 @@ public class IngredientsReposImplTest {
     private static final int ID_INGREDIENT = IngredientsTest.getTestId();
     private static final int QUANTITY_INGREDIENT = IngredientsTest.getTestQuantity();
 
-
     private static final String INSERT_TEST_INDICATOR =
             "INSERT INTO indicator(id, name, view_name) VALUES(?, ?, ?)";
     private static final String DELETE_TEST_INDICATOR =

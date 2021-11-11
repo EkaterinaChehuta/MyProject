@@ -18,6 +18,7 @@ public class ProductReposImpl implements ProductRepos {
     private static final String GET_PRODUCT = "SELECT * FROM product";
     private static final String GET_PRODUCT_BY_NAME = "SELECT * FROM product WHERE name=?";
     private static final String GET_PRODUCT_BY_ID = "SELECT * FROM product WHERE id=?";
+    private static final String GET_PRODUCT_BY_PRODUCT_CATEGORY = "SELECT * FROM product WHERE product_category_id=?";
     private static final String INSERT_PRODUCT = "INSERT INTO product (name, indicator_id, product_category_id) VALUES (?, ?, ?)";
     private static final String DELETE_PRODUCT = "DELETE FROM product WHERE id=?";
     private static final String UPDATE_PRODUCT_NAME = "UPDATE product SET name=? WHERE id=?";
@@ -95,6 +96,31 @@ public class ProductReposImpl implements ProductRepos {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Product> getProductsByProductCategoryId(int productCategoryId) throws SQLException {
+        PreparedStatement preparedStatement = connectionConfig.getConnection()
+                .prepareStatement(GET_PRODUCT_BY_PRODUCT_CATEGORY);
+
+        preparedStatement.setInt(1, productCategoryId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        List<Product> products = new ArrayList<>();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            int indicatorId = resultSet.getInt("indicator_id");
+
+            Indicator indicator = indicatorRepos.getIndicatorById(indicatorId);
+            ProductCategory productCategory = productCategoryRepos.getProductCategoryById(productCategoryId);
+
+            products.add(new Product(id, name, indicator, productCategory));
+        }
+
+        return products;
     }
 
     @Override

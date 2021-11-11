@@ -3,13 +3,25 @@
 
 <html>
 <body>
-  <div><h3>
+  <h3>
     <a href="shoppingList">Список покупок</a>
     <a href="products?action=viewProducts">Список продуктов</a>
     <a href="recipe">Список рецептов</a>
-  </h3></div>
+  </h3>
   <form action="/newProduct" method="get">
       <button type="submit">Добавить новый продукт</button>
+  </form>
+  <form action="products" method="get">
+    <select name="productCategory">
+      <option value="0" selected disabled>Выберите категорию продукта</option>
+      <c:forEach var="productCategory" items="${productCategories}">
+      <option value="${productCategory.id}">${productCategory.name}</option>
+      </c:forEach>
+    </select>
+    <button type="submit">Фильтровать</button>
+  </form>
+  <form action="products" method="get">
+    <button type="submit">Весь список</button>
   </form>
     <table border="1">
         <tr>

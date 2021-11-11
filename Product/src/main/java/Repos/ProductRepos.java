@@ -14,6 +14,8 @@ public interface ProductRepos {
 
     Product getProductById(int id) throws SQLException;
 
+    List<Product> getProductsByProductCategoryId(int productCategoryId) throws SQLException;
+
     void removeProduct(int id) throws SQLException;
 
     void updateProduct(int id, String name) throws SQLException;
